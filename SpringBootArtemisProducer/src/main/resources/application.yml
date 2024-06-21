@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: SpringBootArtemisProducer
+      #activemq:
+      #broker-url: tcp://localhost:61616
+      #user: admin
+      #password: admin
+      #packages:
+    #trust-all: true
+  profiles:
+    active: clustered-queue
+
+---
+spring:
+  artemis:
+    mode: native
+    broker-url: tcp://localhost:61616
+    user: "admin"
+    password: "admin"
+    pool:
+      max-sessions-per-connection: 500
+      enabled: true
+      max-connections: 16
+  config:
+    activate:
+      on-profile: local
+sendgrid:
+  queue: mailbox
+
+---
+spring:
+  config:
+    activate:
+      on-profile: clustered-queue
+  artemis:
+    mode: native
+    broker-url: (tcp://localhost:61616,tcp://localhost:61617,tcp://localhost:61618)?reconnectAttempts=-1
+    user: "admin"
+    password: "admin"
+    pool:
+      max-sessions-per-connection: 500
+      enabled: true
+      max-connections: 16
+sendgrid:
+  queue: mailbox

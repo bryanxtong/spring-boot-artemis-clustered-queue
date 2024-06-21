@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: Consumer
+  profiles:
+    active: consumer1
+---
+spring:
+  artemis:
+    mode: native
+    broker-url: tcp://localhost:61616
+    user: "admin"
+    password: "admin"
+    pool:
+      max-sessions-per-connection: 500
+      enabled: true
+      max-connections: 16
+  config:
+    activate:
+      on-profile: local
+sendgrid:
+  queue: mailbox
+
+---
+spring:
+  config:
+    activate:
+      on-profile: consumer1
+  artemis:
+    mode: native
+    broker-url: tcp://localhost:61616
+    user: "admin"
+    password: "admin"
+    pool:
+      max-sessions-per-connection: 500
+      enabled: true
+      max-connections: 16
+sendgrid:
+  queue: mailbox
+server:
+  port: 8082
+---
+spring:
+  config:
+    activate:
+      on-profile: consumer2
+  artemis:
+    mode: native
+    broker-url: tcp://localhost:61617
+    user: "admin"
+    password: "admin"
+    pool:
+      max-sessions-per-connection: 500
+      enabled: true
+      max-connections: 16
+sendgrid:
+  queue: mailbox
+server:
+  port: 8083
+---
+spring:
+  config:
+    activate:
+      on-profile: consumer3
+  artemis:
+    mode: native
+    broker-url: tcp://localhost:61618
+    user: "admin"
+    password: "admin"
+    pool:
+      max-sessions-per-connection: 500
+      enabled: true
+      max-connections: 16
+sendgrid:
+  queue: mailbox
+server:
+  port: 8084
