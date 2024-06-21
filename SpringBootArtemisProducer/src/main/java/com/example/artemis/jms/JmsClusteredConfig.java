@@ -31,9 +31,7 @@ public class JmsClusteredConfig {
         DiscoveryGroupConfiguration configuration = new DiscoveryGroupConfiguration();
         configuration.setBroadcastEndpointFactory(factory);
         ActiveMQConnectionFactory connectionFactory = ActiveMQJMSClient.createConnectionFactoryWithoutHA(configuration, JMSFactoryType.QUEUE_XA_CF);
-        String connectionLoadBalancingPolicyClassName = connectionFactory.getConnectionLoadBalancingPolicyClassName();
-        Collection<TopologyMemberImpl> members = connectionFactory.getServerLocator().getTopology().getMembers();
-        System.out.println(members);
+        //String connectionLoadBalancingPolicyClassName = connectionFactory.getConnectionLoadBalancingPolicyClassName();
         return connectionFactory;
     }
 
